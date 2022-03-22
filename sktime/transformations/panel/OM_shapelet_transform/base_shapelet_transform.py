@@ -16,7 +16,6 @@ import warnings
 import numpy as np
 import pandas as pd
 from joblib import Parallel, delayed
-from numba import NumbaPendingDeprecationWarning, njit
 from sklearn import preprocessing
 from sklearn.utils import check_random_state
 
@@ -197,7 +196,7 @@ class RandomShapeletTransform(_PanelToTabularTransformer):
         X, y = check_X_y(X, y, coerce_to_numpy=True)
 
         # this is a few versions away currently, and heaps dont support the replacement
-        warnings.simplefilter("ignore", category=NumbaPendingDeprecationWarning)
+        # warnings.simplefilter("ignore", category=NumbaPendingDeprecationWarning)
 
         self._n_jobs = check_n_jobs(self.n_jobs)
 
@@ -340,8 +339,8 @@ class RandomShapeletTransform(_PanelToTabularTransformer):
         self.check_is_fitted()
         X = check_X(X, coerce_to_numpy=True)
 
-        # this is a few versions away currently, and heaps dont support the replacement
-        warnings.simplefilter("ignore", category=NumbaPendingDeprecationWarning)
+        # # this is a few versions away currently, and heaps dont support the replacement
+        # warnings.simplefilter("ignore", category=NumbaPendingDeprecationWarning)
 
         output = np.zeros((len(X), len(self.shapelets)))
 
@@ -404,7 +403,6 @@ class RandomShapeletTransform(_PanelToTabularTransformer):
         return quality, length, position, dim, inst_idx, cls_idx
 
     @staticmethod
-    @njit(fastmath=True, cache=True)
     def _find_shapelet_quality(
         X,
         y,
@@ -459,7 +457,6 @@ class RandomShapeletTransform(_PanelToTabularTransformer):
         return round(quality, 12)
 
     @staticmethod
-    @njit(fastmath=True, cache=True)
     def _merge_shapelets(
         shapelet_heap, candidate_shapelets, max_shapelets_per_class, cls_idx
     ):
@@ -477,7 +474,6 @@ class RandomShapeletTransform(_PanelToTabularTransformer):
                     heapq.heappop(shapelet_heap)
 
     @staticmethod
-    @njit(fastmath=True, cache=True)
     def _remove_self_similar_shapelets(shapelet_heap):
         to_keep = [True] * len(shapelet_heap)
 
@@ -499,7 +495,6 @@ class RandomShapeletTransform(_PanelToTabularTransformer):
         return to_keep
 
     @staticmethod
-    @njit(fastmath=True, cache=True)
     def _remove_identical_shapelets(shapelets):
         to_keep = [True] * len(shapelets)
 
@@ -515,7 +510,6 @@ class RandomShapeletTransform(_PanelToTabularTransformer):
         return to_keep
 
 
-@njit(fastmath=True, cache=True)
 def _online_shapelet_distance(series, shapelet, sorted_indicies, position, length):
     subseq = series[position : position + length]
 
@@ -578,7 +572,6 @@ def _online_shapelet_distance(series, shapelet, sorted_indicies, position, lengt
     return best_dist if best_dist == 0 else 1 / length * best_dist
 
 
-@njit(fastmath=True, cache=True)
 def _calc_early_binary_ig(
     orderline,
     c1_traversed,
@@ -641,7 +634,6 @@ def _calc_early_binary_ig(
     return bsf_ig
 
 
-@njit(fastmath=True, cache=True)
 def _calc_binary_ig(orderline, c1, c2):
     initial_ent = _binary_entropy(c1, c2)
 
@@ -674,7 +666,6 @@ def _calc_binary_ig(orderline, c1, c2):
     return bsf_ig
 
 
-@njit(fastmath=True, cache=True)
 def _binary_entropy(c1, c2):
     ent = 0
     if c1 != 0:
@@ -684,7 +675,6 @@ def _binary_entropy(c1, c2):
     return ent
 
 
-@njit(fastmath=True, cache=True)
 def _is_self_similar(s1, s2):
     # not self similar if from different series or dimension
     if s1[4] == s2[4] and s1[3] == s2[3]:
