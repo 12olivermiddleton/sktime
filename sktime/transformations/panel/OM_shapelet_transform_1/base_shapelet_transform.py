@@ -511,11 +511,18 @@ class RandomShapeletTransform(_PanelToTabularTransformer):
 
 
 def _online_shapelet_distance(series, shapelet, sorted_indicies, position, length):
+    print("1",type(series))
+    print("2",type(shapelet))
+    print("3",type(sorted_indicies))
+    print("4",type(position))
+    print("5",type(length))
+
     subseq = series[position : position + length]
 
     sum = 0.0
     sum2 = 0.0
     for i in subseq:
+        print(type(i))
         sum += i
         sum2 += i * i
 

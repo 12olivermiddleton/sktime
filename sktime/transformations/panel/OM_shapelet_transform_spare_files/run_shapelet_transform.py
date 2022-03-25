@@ -6,7 +6,7 @@
 import time
 
 
-from sktime.transformations.panel.OM_shapelet_transform_1.base_shapelet_transform import RandomShapeletTransform
+from sktime.transformations.panel.OM_shapelet_transform.cython_shapelet_transform import RandomShapeletTransform
 from sktime.datasets import load_unit_test  # This can be any of the baked in datasets
 
 time1 = time.time()

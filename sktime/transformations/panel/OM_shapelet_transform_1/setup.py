@@ -1,4 +1,10 @@
-from distutils.core import setup
-from Cython.Build import cythonize
+from setuptools import setup, Extension
 
-setup(name="cython_shapelet_transform", ext_modules=cythonize('cython_shapelet_transform.pyx'))
+module = Extension('utils', sources=['sktime/transformations/panel/OM_shapelet_transform_1/utils.pyx'])
+
+setup(
+    name='sktime',
+    version='1.0',
+    author='Oliver',
+    ext_modules=[module]
+)
