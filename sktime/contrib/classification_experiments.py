@@ -101,12 +101,12 @@ if __name__ == "__main__":
         print(" Local Run")
         data_dir = "../datasets/data/"
         results_dir = "C:/Temp/"
-        cls_name = "CIF"
+        cls_name = "CIF" # stc/numba
         classifier = CanonicalIntervalForest()
         dataset = "UnitTest"
-        resample = 0
-        tf = False
-        predefined_resample = False
+        resample = 0 # maybe 10?
+        tf = False # dont worry
+        predefined_resample = False # dont worry
 
         load_and_run_classification_experiment(
             overwrite=True,
