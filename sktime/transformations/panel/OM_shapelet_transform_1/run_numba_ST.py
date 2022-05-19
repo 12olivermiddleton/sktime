@@ -1,4 +1,4 @@
-# This python file is for running the shapelet transform algorithm
+# This python file is for running the Numba transform algorithm
 # Oliver Middleton
 
 # The following script is taken from the shapelet transform comments,
@@ -6,11 +6,11 @@
 import time
 
 
-from sktime.transformations.panel.OM_shapelet_transform.cython_shapelet_transform import RandomShapeletTransform
-from sktime.datasets import load_unit_test  # This can be any of the baked in datasets
+from sktime.transformations.panel.shapelet_transform import RandomShapeletTransform
+from sktime.datasets import load_gunpoint  # This can be any of the baked in datasets
 
 time1 = time.time()
-X_train, y_train = load_unit_test(split="train", return_X_y=True)
+X_train, y_train = load_gunpoint(split="train", return_X_y=True)
 t = RandomShapeletTransform(n_shapelet_samples=500, max_shapelets=10, batch_size=100)
 t.fit(X_train, y_train)
 X_t = t.transform(X_train)
