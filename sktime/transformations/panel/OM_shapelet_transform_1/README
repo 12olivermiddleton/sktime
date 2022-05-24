@@ -1,0 +1,15 @@
+
+The Cython code is in the file utils.pyx, and is compiled using setup.py using the args, build_ext and --inplace
+There are 4 files for experiments, 3 for running the shapelet transform:
+- run_cython_ST.py
+- run_shapelet_transform.py
+- run_numba_ST.py
+
+There is one file for measuring the accuracy:
+- st_accuracy_experiment.py
+
+There are 2 files containing the shapelet transform algorithm
+- base_shapelet_transform.py is the ST with Numba stripped from the algorithm
+- cython_shapelet_transform.py this is the shapelet transform class without the functions we optimise using Cython
+
+There are instructions on the compilation of utils.pyx into an extension in the Cython_help notebook.
