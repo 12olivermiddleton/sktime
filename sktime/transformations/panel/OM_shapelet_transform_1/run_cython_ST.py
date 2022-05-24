@@ -6,17 +6,16 @@ from pyximport import install;
 install()
 
 import numpy
-
+# Ensure the cython extension can be run with numpy dependencies
 pyximport.install(setup_args={"include_dirs": numpy.get_include()},
                   reload_support=True)
 
-# import utils
 
 from sktime.transformations.panel.OM_shapelet_transform_1.cython_shapelet_transform import RandomShapeletTransform
-
 from sktime.datasets import load_UCR_UEA_dataset  # This can be any of the baked in datasets
+from sktime.datasets import load_acsf1, load_unit_test, load_gunpoint, load_osuleaf
 
-""" 128 UCR univariatetime series classification problems [1]"""
+# Data sets for load_UCR_UEA_dataset
 data = [
     "ACSF1",
     "Adiac",
@@ -48,6 +47,7 @@ data = [
 
 
 data_times = []
+# loop through data sets and run numba shapelet transform implementation on each
 for set in data:
     time1 = time.time()
     print(set)
@@ -67,3 +67,4 @@ for set in data:
     data_times.append(float("{:.2f}".format(total)))
 
 print(data_times)
+

@@ -1,8 +1,7 @@
-
 from setuptools import setup, Extension
-
+# Create extension called utils, from file location
 module = Extension('utils', sources=['sktime/transformations/panel/OM_shapelet_transform_1/utils.pyx'])
-
+# Set up the extension passing environment and directories
 setup(
     name='sktime',
     version='1.0',

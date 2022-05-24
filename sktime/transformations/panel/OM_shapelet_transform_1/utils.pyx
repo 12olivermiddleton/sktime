@@ -7,7 +7,6 @@ cimport cython
 from cpython cimport bool
 
 
-
 def online_shapelet_distance(np.ndarray series, np.ndarray shapelet, list sorted_indicies, int position, int length):
 
     cdef:
@@ -18,7 +17,6 @@ def online_shapelet_distance(np.ndarray series, np.ndarray shapelet, list sorted
         np.float64_t mean, std
         np.float64_t start, end
         np.float64_t temp, val
-        # pos and i cannot by typed
         int n, mod, j
         bool use_std
 
@@ -90,16 +88,14 @@ def calc_early_binary_ig(
     c2_to_add,
     worst_quality,
 ):
-    # TODO add in typing for variables
-    # cdef:
-    #     np.float64_t initial_ent, left_prop, right_prop, ent_left, ent_right, ig
-    #     np.float64_t bsf_ig
-    #     np.int64_t c1_count
-    #     np.int64_t c2_count
-    #
-    #     np.int64_t total_all
-    #     int split, next_class
-    # TODO check the above code block variables and typings
+    cdef:
+        np.float64_t initial_ent, left_prop, right_prop, ent_left, ent_right, ig
+        np.float64_t bsf_ig
+        np.int64_t c1_count
+        np.int64_t c2_count
+
+        np.int64_t total_all
+        int split, next_class
 
     initial_ent = binary_entropy(
         c1_traversed + c1_to_add,
